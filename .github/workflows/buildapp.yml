@@ -93,10 +93,9 @@ jobs:
       - name: Download iOS SDK
         if: steps.SDK.outputs.cache-hit != 'true'
         run: |
-          git clone --quiet -n --depth=1 --filter=blob:none https://github.com/aricloverALT/sdks/
+          git clone --quiet --depth=1 --filter=blob:none --sparse https://github.com/aricloverALT/sdks/
           cd sdks
-          git sparse-checkout set --no-cone iPhoneOS${{ inputs.sdk_version }}.sdk
-          git checkout
+          git sparse-checkout set iPhoneOS${{ inputs.sdk_version }}.sdk
           mv *.sdk $THEOS/sdks
         env:
           THEOS: ${{ github.workspace }}/theos
